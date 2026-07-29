@@ -41,21 +41,29 @@ def LoadGame():
         subprocess.run('cls', shell=True)
         print(l.startmenu_loadgame1)
         saved_files = [file.name for file in Path('Saves').rglob("*.*")]
-        for f in saved_files:
-            print(f)
+        for index in range(len(saved_files)):
+          print("["+str(index)+"]"+saved_files[index])
         print(l.startmenu_loadgame2)
-        selection = input(l.startmenu_loadgame3)
-        try:
-            with open("Saves/"+selection,"r", encoding="utf-8") as f:
-                list=f.readlines()
-                debug=list[0]
-        except IOError:
-            print(l.startmenu_loadError)
-            time.sleep(1)
+        select = input(l.startmenu_select)
+        if select.isdigit():
+            if 0 <= int(select) <= len(saved_files):
+                selection = saved_files[int(select)]
+                try:
+                    with open("Saves/"+selection,"r", encoding="utf-8") as f:
+                        list=f.readlines()
+                except IOError:
+                    print(l.startmenu_invalid)
+                    time.sleep(1)
+                else:
+                    subprocess.Popen(["python", "Parts/save_or_load.py", "lg", lang[0], selection])
+                    exit()
+                    break
+            else:
+                        print(l.startmenu_invalid)
+                        time.sleep(1)
         else:
-            subprocess.Popen(["python", "Parts/save_or_load.py", "lg", lang[0], selection])
-            exit()
-            break
+            print(l.startmenu_invalid)
+            time.sleep(1)
     
 
 #展示开始界面
