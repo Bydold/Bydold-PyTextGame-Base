@@ -25,5 +25,15 @@ if sys.argv[1] == "ng":
     with open(save_path, "w", encoding="utf-8") as f:
         f.write(sys.argv[3])
     print(l.sol_created+save_name)
+#开始新游戏-并进入游戏
+    subprocess.Popen(["python", "Parts/gaming.py", "ng", lang[0], sys.argv[3]])
+    exit()
 
 #读取游戏
+if sys.argv[1] == "lg":
+    with open("Saves/" + sys.argv[3], "r", encoding="utf-8") as f:
+        save_content = f.readlines()
+        debug = save_content[0]
+#读取游戏-并进入游戏
+    subprocess.Popen(["python", "Parts/gaming.py", "lg", lang[0], debug])
+    exit()

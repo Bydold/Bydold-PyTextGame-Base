@@ -28,7 +28,8 @@ def NewGame():
         if selection == "1":
             debug = input("debug=")
         elif selection == "0":
-            subprocess.run(["python", "Parts/save_or_load.py", "ng", lang[0], debug])
+            subprocess.Popen(["python", "Parts/save_or_load.py", "ng", lang[0], debug])
+            exit()
             break
         else:
             print(l.startmenu_invalid)
@@ -52,7 +53,8 @@ def LoadGame():
             print(l.startmenu_loadError)
             time.sleep(1)
         else:
-            print(debug)
+            subprocess.Popen(["python", "Parts/save_or_load.py", "lg", lang[0], selection])
+            exit()
             break
     
 
